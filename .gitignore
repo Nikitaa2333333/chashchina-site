@@ -31,3 +31,6 @@ pnpm-debug.log*
 
 # Astro cache
 .astro/
+
+# Root temporary video files
+/*.mp4

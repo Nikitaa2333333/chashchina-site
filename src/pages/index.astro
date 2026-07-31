@@ -26,17 +26,41 @@ const values = [
 ];
 
 const hardware = [
-  'Световые и лазерные методики',
-  'Радиоволновой лифтинг',
-  'Токи и микротоки',
-  'Фокусированный ультразвук',
+  {
+    t: 'Световые и лазерные методики',
+    d: 'Пигмент, сосуды, текстура: выравнивают тон и запускают обновление кожи.',
+  },
+  {
+    t: 'Радиоволновой лифтинг',
+    d: 'Мягкий прогрев тканей стимулирует коллаген — кожа плотнеет, уходит отёчность.',
+  },
+  {
+    t: 'Токи и микротоки',
+    d: 'Тонус, лимфодренаж, свежесть лица — деликатная работа без реабилитации.',
+  },
+  {
+    t: 'Фокусированный ультразвук',
+    d: 'Работает на глубине SMAS — подтягивает каркас лица без хирургии.',
+  },
 ];
 
 const injTasks = [
-  'Качество и увлажнённость кожи',
-  'Объёмы и опора тканей',
-  'Мимические зоны',
-  'Асимметрия',
+  {
+    t: 'Качество и увлажнённость кожи',
+    d: 'Плотность, сияние и удержание влаги — когда кожа выглядит уставшей.',
+  },
+  {
+    t: 'Объёмы и опора тканей',
+    d: 'Вернуть опору там, где ткани её теряют, — без чужого лица.',
+  },
+  {
+    t: 'Мимические зоны',
+    d: 'Смягчить морщины, сохранив живую, подвижную мимику.',
+  },
+  {
+    t: 'Асимметрия',
+    d: 'Аккуратно выровнять врождённые и возрастные различия сторон.',
+  },
 ];
 
 const zones = ['Шея и кольца Венеры', 'Второй подбородок', 'Кисти, локти, колени'];
@@ -72,6 +96,18 @@ const symptoms = [
   'После лета появились пятна, которые не уходят сами.',
   'Лицо ещё держится, а шея и руки выдают возраст.',
   'Хочется подтянуть — но страшно получить чужое лицо вместо своего.',
+];
+
+const path = [
+  { y: '1997', t: 'СибГМУ, лечебный факультет — начало пути в медицине' },
+  { y: '2002', t: 'МГМСУ, «Лечебное дело»' },
+  { y: '2004', t: 'Ординатура по дерматовенерологии в РМАПО. Первые годы практики врачом-косметологом' },
+  { y: '2011', t: 'Интернатура по хирургии, переподготовка по косметологии. Заведующая отделением эстетики тела в клинике антиэйджинга' },
+  { y: '2013', t: 'Физиотерапия — ИППО ФМБЦ им. Бурназяна' },
+  { y: '2018', t: 'Сеть клиник превентивной медицины «Атлас»' },
+  { y: '2021', t: '«Олимп Клиник», затем возвращение в «Атлас»' },
+  { y: '2022', t: 'Организация здравоохранения и общественное здоровье' },
+  { y: 'Сегодня', t: 'Ассоциации косметологов и мезотерапевтов, эстетической медицины ЦВЕ, PreventAge' },
 ];
 ---
 
@@ -137,29 +173,50 @@ const symptoms = [
     </div>
   </section>
 
-  <!-- ============ 3. Две половины одной работы ============
-       Контрастный сплит-экран: светлая и тёмная половины -->
-  <section class="halves-split" id="halves">
-    <div class="halves-split__col halves-split__col--light">
-      <div class="halves-split__inner">
-        <p class="tag reveal">Две половины одной работы · 01</p>
-        <h2 class="halves-split__title" data-split>Снаружи</h2>
-        <p class="reveal">
-          Лазеры, фокусированный ультразвук, радиоволновой лифтинг, токи.
-          Всё, что делается с кожей и мягкими тканями непосредственно —
-          с понятной глубиной воздействия и предсказуемым результатом.
-        </p>
-      </div>
+  <!-- ============ 3. Работа с двух сторон ============
+       Общий заголовок + контрастный сплит: светлая и шалфейная половины -->
+  <section id="halves">
+    <div class="container halves-head">
+      <p class="tag reveal">Из чего складывается результат</p>
+      <h2 data-split>Работа идёт с&nbsp;двух сторон</h2>
+      <p class="lead reveal">
+        Процедуры — только половина дела. Вторая половина — то, что
+        происходит внутри организма: от&nbsp;него зависит, каким будет
+        эффект и&nbsp;как долго он&nbsp;продержится.
+      </p>
     </div>
-    <div class="halves-split__col theme-dark">
-      <div class="halves-split__inner">
-        <p class="tag reveal">Две половины одной работы · 02</p>
-        <h2 class="halves-split__title" data-split>Изнутри</h2>
-        <p class="reveal">
-          Хроническое воспаление, окислительный стресс, гликация, дефициты,
-          качество сна. Всё, из-за чего кожа стареет быстрее и хуже
-          восстанавливается — и что не исправить ни одним аппаратом.
-        </p>
+    <div class="halves-split">
+      <div class="halves-split__col halves-split__col--light">
+        <div class="halves-split__inner">
+          <p class="tag reveal">01</p>
+          <h3 class="halves-split__title" data-split>Снаружи</h3>
+          <p class="reveal">
+            Лазеры, фокусированный ультразвук, радиоволновой лифтинг, токи.
+            Всё, что делается с кожей и мягкими тканями непосредственно —
+            с понятной глубиной воздействия и предсказуемым результатом.
+          </p>
+        </div>
+      </div>
+      <div class="halves-split__col halves-split__col--sage">
+        <video
+          class="halves-split__video"
+          src="/video/serum.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-hidden="true"
+        ></video>
+        <div class="halves-split__inner">
+          <p class="tag reveal">02</p>
+          <h3 class="halves-split__title" data-split>Изнутри</h3>
+          <p class="reveal">
+            Хроническое воспаление, окислительный стресс, гликация, дефициты,
+            качество сна. Всё, из-за чего кожа стареет быстрее и хуже
+            восстанавливается — и что не исправить ни одним аппаратом.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -195,26 +252,6 @@ const symptoms = [
     </div>
   </section>
 
-  <!-- ============ Цифры (реф: numbers-list «1 tablet = 2.5 acres») ============ -->
-  <section class="section" id="facts">
-    <div class="container">
-      <div class="facts reveal-group">
-        <div class="facts__row">
-          <span class="facts__val">22 года</span>
-          <span class="tag">практики в косметологии и превентивной медицине</span>
-        </div>
-        <div class="facts__row">
-          <span class="facts__val">60 минут</span>
-          <span class="tag">длится консультация — с разбором, а не «на бегу»</span>
-        </div>
-        <div class="facts__row">
-          <span class="facts__val">3 ступени</span>
-          <span class="tag">разобраться → подготовить ткани → подтянуть и закрепить</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ 4. Как строится работа ============ -->
   <section class="section" id="steps">
     <div class="container">
@@ -241,9 +278,20 @@ const symptoms = [
     </div>
   </section>
 
-  <!-- Фото-пауза: полноширинный кадр с параллаксом -->
+  <!-- Фото-пауза: во всю ширину экрана -->
   <figure class="strip">
-    <img src="/photos/web/strip1.webp" alt="" loading="lazy" decoding="async" />
+    <img src="/photos/web/strip1.webp" alt="Оксана Чащина на приёме" loading="lazy" decoding="async" />
+    <figcaption class="strip__cap">
+      <span>
+        Процедуры работают, когда понятна причина. Тип старения у всех
+        разный, и то, что помогло подруге, вам может просто не подойти.
+      </span>
+      <span>
+        Поэтому приём начинается с разговора и осмотра, а не с аппарата.
+        Иногда — с анализов: часть проблем с кожей решается не в кабинете
+        косметолога.
+      </span>
+    </figcaption>
   </figure>
 
   <!-- ============ 5. Аппаратные методы ============ -->
@@ -260,7 +308,11 @@ const symptoms = [
         {hardware.map((h, i) => (
           <div class="passport__card">
             <span class="tag">0{i + 1}</span>
-            <h3>{h}</h3>
+            <div class="passport__body">
+              <h3>{h.t}</h3>
+              <p class="passport__desc">{h.d1}</p>
+              <p class="passport__desc">{h.d2}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -308,7 +360,10 @@ const symptoms = [
         {injTasks.map((t, i) => (
           <div class="passport__card">
             <span class="tag">0{i + 1}</span>
-            <h3>{t}</h3>
+            <div class="passport__body">
+              <h3>{t.t}</h3>
+              <p class="passport__desc">{t.d}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -428,41 +483,22 @@ const symptoms = [
         это реально. Вопрос в том, каким будет качество жизни в эти годы.
         <mark>Ради него всё и делается.</mark>
       </p>
-      <details class="edu reveal">
-        <summary>
-          <span>Образование и квалификация</span>
-          <span class="edu__cross" aria-hidden="true"></span>
-        </summary>
-        <div class="edu__body">
-          <div class="edu__col">
-            <p class="tag">Образование</p>
-            <ul>
-              <li>1997–2002 — СибГМУ, лечебный факультет</li>
-              <li>2002–2004 — МГМСУ, «Лечебное дело»</li>
-              <li>2004–2006 — РМАПО, ординатура по дерматовенерологии</li>
-              <li>2010–2011 — МГМСУ, интернатура по хирургии</li>
-              <li>2011–2012 — МИУВ МГУПП, переподготовка по косметологии</li>
-              <li>2013 — ИППО ФМБЦ им. Бурназяна, физиотерапия</li>
-              <li>2022 — организация здравоохранения и общественное здоровье</li>
-            </ul>
-          </div>
-          <div class="edu__col">
-            <p class="tag">Опыт</p>
-            <ul>
-              <li>2004–2011 — врач-косметолог</li>
-              <li>2011–2018 — клиника антиэйджинга, заведующая отделением эстетики тела</li>
-              <li>2018–2021 и с 2022 — сеть клиник «Атлас»</li>
-              <li>2021–2022 — «Олимп Клиник»</li>
-            </ul>
-            <p class="tag">Сообщества</p>
-            <ul>
-              <li>Ассоциация косметологов и мезотерапевтов</li>
-              <li>Ассоциация специалистов эстетической медицины ЦВЕ</li>
-              <li>PreventAge</li>
-            </ul>
-          </div>
+      <div class="path reveal">
+        <div class="path__head">
+          <h3>Мой путь</h3>
+          <span class="tag" aria-hidden="true">листайте вбок →</span>
         </div>
-      </details>
+        <div class="path__scroller">
+          <ol class="path__track" tabindex="0" aria-label="Мой путь — ключевые этапы по годам">
+            {path.map((p) => (
+              <li class="path__item">
+                <span class="path__year">{p.y}</span>
+                <p class="path__text">{p.t}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -490,9 +526,19 @@ const symptoms = [
     </div>
   </section>
 
-  <!-- Фото-пауза перед финалом -->
+  <!-- Фото-пауза перед финалом: во всю ширину экрана -->
   <figure class="strip">
-    <img src="/photos/web/strip2.webp" alt="" loading="lazy" decoding="async" />
+    <img src="/photos/web/strip2.webp" alt="Оксана Чащина" loading="lazy" decoding="async" />
+    <figcaption class="strip__cap">
+      <span>
+        За час консультации мы разбираем кожу, привычки, сон и анализы.
+        Не спеша, без конвейера — это время только про вас.
+      </span>
+      <span>
+        Вы уйдёте с понятным планом, а не со списком процедур. Будет ясно,
+        что делаем, зачем и в каком порядке.
+      </span>
+    </figcaption>
   </figure>
 
   <!-- ============ 17. Запись — тёмный финал ============ -->
@@ -623,7 +669,13 @@ const symptoms = [
     .cards { grid-template-columns: 1fr; }
   }
 
-  /* ---------- Две половины: контрастный сплит-экран ---------- */
+  /* ---------- Две стороны работы: заголовок + контрастный сплит ---------- */
+  .halves-head {
+    /* сверху — обычный ритм секции, снизу — короткая отбивка до сплита */
+    padding-block: var(--section-gap) var(--block-gap);
+  }
+  .halves-head h2 { margin-top: 10px; }
+  .halves-head .lead { margin-top: clamp(11px, 1.4vw, 18px); }
   .halves-split {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -635,6 +687,10 @@ const symptoms = [
     min-height: min(72svh, 700px);
   }
   .halves-split__col--light { background: var(--c-surface); }
+  /* Шалфей вместо глубокого зелёного: контраст половин остаётся,
+     но с тёмной секцией ниже блок больше не сливается */
+  .halves-split__col--sage { background: var(--c-green-pale); }
+  .halves-split__col--sage .tag { color: var(--c-ink); }
   .halves-split__inner {
     max-width: 520px;
     margin-inline: auto;
@@ -710,6 +766,13 @@ const symptoms = [
   }
   .section:not(.section--surface) .passport__card { background: var(--c-surface); }
   .passport__card h3 { max-width: 14ch; }
+  .passport__body { margin-top: clamp(28px, 4vw, 56px); }
+  .passport__desc {
+    margin-top: 10px;
+    font-size: var(--fs-small);
+    line-height: 1.45;
+    max-width: 30ch;
+  }
   @media (max-width: 900px) {
     .passport { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
@@ -782,54 +845,76 @@ const symptoms = [
   .socials p { max-width: var(--measure-lead); }
   .socials__links { display: flex; gap: 28px; color: var(--c-green); }
 
-  /* ---------- Обо мне: свёрнутый блок с крестиком из двух линий ---------- */
-  .edu {
-    margin-top: var(--block-gap);
-    border-top: 1px solid var(--c-line);
-    border-bottom: 1px solid var(--c-line);
-  }
-  .edu summary {
-    display: flex;
-    justify-content: space-between;
+  /* ---------- Видео-вставка: серум и молекулы ----------
+     Сплит в сетке сайта: текст слева, футаж справа в медиа-окне.
+     Видео чуть шире текстовой колонки — акцент остаётся на футаже. */
+  .serum__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: clamp(24px, 4vw, 64px);
     align-items: center;
+  }
+  .serum__text h2 { margin-block: 12px 14px; }
+  .serum__media {
+    margin: 0;
+    aspect-ratio: 16 / 10;
+  }
+  .serum__media video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media (max-width: 860px) {
+    .serum__grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Обо мне: «Мой путь» — горизонтальный таймлайн ----------
+     Лента листается вбок и «уходит» за линейный градиент у правого края. */
+  .path { margin-top: var(--block-gap); }
+  .path__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
     gap: 24px;
-    padding-block: 18px;
-    cursor: pointer;
-    list-style: none;
-    font-size: var(--fs-h3);
-    font-weight: 420;
+    margin-bottom: 18px;
   }
-  .edu summary::-webkit-details-marker { display: none; }
-  .edu__cross {
-    position: relative;
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-  }
-  .edu__cross::before,
-  .edu__cross::after {
+  .path__scroller { position: relative; }
+  .path__scroller::after {
     content: '';
     position: absolute;
-    inset: 50% auto auto 0;
-    width: 100%;
-    height: 1px;
-    background: var(--c-green);
-    transition: transform var(--t-hover);
+    inset: 0 0 0 auto;
+    width: clamp(70px, 12vw, 180px);
+    background: linear-gradient(to left, var(--c-bg) 10%, transparent);
+    pointer-events: none;
   }
-  .edu__cross::before { transform: rotate(90deg); }
-  .edu[open] .edu__cross::before { transform: rotate(0deg); }
-  .edu__body {
+  .path__track {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(20px, 3vw, 48px);
-    padding-block: 6px 26px;
+    grid-auto-flow: column;
+    grid-auto-columns: clamp(210px, 24vw, 290px);
+    overflow-x: auto;
+    cursor: grab;
+    scrollbar-width: none;
   }
-  .edu__body .tag { display: block; margin-bottom: 10px; }
-  .edu__body ul { margin-bottom: 20px; }
-  .edu__body li + li { margin-top: 8px; }
-  @media (max-width: 760px) {
-    .edu__body { grid-template-columns: 1fr; }
+  .path__track::-webkit-scrollbar { display: none; }
+  .path__track.is-drag { cursor: grabbing; user-select: none; }
+  /* ось таймлайна — непрерывная структурная линия сверху */
+  .path__item {
+    border-top: 1px solid var(--c-line);
+    padding: 16px clamp(24px, 3vw, 48px) 6px 0;
   }
+  .path__track .path__item + .path__item { margin-top: 0; }
+  /* запас справа, чтобы последний этап не жил под градиентом */
+  .path__item:last-child { padding-right: clamp(70px, 12vw, 180px); }
+  .path__year {
+    display: block;
+    font-size: clamp(26px, 2.6vw, 34px);
+    font-weight: 330;
+    line-height: 1.1;
+    color: var(--c-green);
+    margin-bottom: 10px;
+  }
+  .path__text { font-size: var(--fs-small); }
 
   /* ---------- Рубрики статей ---------- */
   .rubrics {
@@ -887,41 +972,35 @@ const symptoms = [
   .theme-dark .form__check input { accent-color: var(--c-green-pale); }
   .theme-dark .link-arrow { color: var(--c-green-pale); }
 
-  /* ---------- Цифры (реф: numbers-list «1 tablet = 2.5 acres») ---------- */
-  .facts__row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
-    gap: 12px clamp(20px, 4vw, 64px);
-    align-items: end;
-    padding-block: clamp(14px, 2vw, 22px);
-    border-bottom: 1px solid var(--c-line);
-  }
-  .facts__row:first-child { border-top: 1px solid var(--c-line); }
-  .facts__val {
-    font-size: clamp(34px, 4.8vw, 68px);
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    color: var(--c-green);
-  }
-  .facts__row .tag { padding-bottom: 6px; }
-  @media (max-width: 700px) {
-    .facts__row { grid-template-columns: 1fr; align-items: start; }
-  }
-
-  /* ---------- Фото-пауза с параллаксом ---------- */
+  /* ---------- Фото-пауза: во всю ширину, кадр целиком, без кропа ---------- */
   .strip {
+    position: relative;
     margin: 0;
-    overflow: hidden;
-    height: clamp(320px, 58vh, 560px);
+    width: 100%;
   }
   .strip img {
     width: 100%;
-    height: 130%;
-    margin-top: -15%;
-    object-fit: cover;
-    object-position: center 30%;
-    will-change: transform;
+    height: auto;
+    display: block;
+  }
+  /* Крупные фразы по бокам на линейном градиенте снизу */
+  .strip__cap {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: clamp(24px, 6vw, 120px);
+    padding: 160px var(--gutter) 28px;
+    color: var(--c-white);
+    font-size: clamp(18px, 1.9vw, 25px);
+    font-weight: 380;
+    line-height: 1.35;
+    background: linear-gradient(to top, rgba(17, 19, 17, 0.72), rgba(17, 19, 17, 0.25) 55%, transparent);
+  }
+  .strip__cap span { max-width: 30ch; }
+  @media (max-width: 700px) {
+    .strip__cap { flex-direction: column; align-items: flex-start; gap: 14px; padding-top: 90px; }
   }
 
   /* ---------- Пресса: editorial-строки ---------- */
@@ -965,3 +1044,29 @@ const symptoms = [
     .manifesto__cols { grid-template-columns: 1fr; }
   }
 </style>
+
+<script>
+  // «Мой путь»: перетаскивание ленты мышью (тачпад и тач скроллят нативно)
+  const track = document.querySelector<HTMLElement>('.path__track');
+  if (track) {
+    let startX = 0;
+    let startLeft = 0;
+    let dragging = false;
+    track.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      startX = e.clientX;
+      startLeft = track.scrollLeft;
+      track.classList.add('is-drag');
+      track.setPointerCapture(e.pointerId);
+    });
+    track.addEventListener('pointermove', (e) => {
+      if (dragging) track.scrollLeft = startLeft - (e.clientX - startX);
+    });
+    const stopDrag = () => {
+      dragging = false;
+      track.classList.remove('is-drag');
+    };
+    track.addEventListener('pointerup', stopDrag);
+    track.addEventListener('pointercancel', stopDrag);
+  }
+</script>
