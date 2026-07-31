@@ -10,7 +10,7 @@ const nav = [
 
 <header class="header">
   <div class="container header__row">
-    <a href="/" class="header__logo">Оксана Чащина</a>
+    <a href={import.meta.env.BASE_URL} class="header__logo">Оксана Чащина</a>
     <nav class="header__nav">
       {nav.map((item) => <a href={item.href}>{item.label}</a>)}
     </nav>
