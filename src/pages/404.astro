@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Такой страницы нет — Оксана Чащина">
+  <Header />
+  <section class="section">
+    <div class="container">
+      <p class="tag reveal">404</p>
+      <h1 data-split>Такой страницы нет</h1>
+      <p class="lead reveal">
+        Возможно, ссылка устарела. Загляните в статьи — там есть почти на всё,
+        о чём меня спрашивают.
+      </p>
+      <p class="reveal">
+        <a class="link-arrow" href="/">На главную →</a>
+        &nbsp;&nbsp;
+        <a class="link-arrow" href="/#articles">Все статьи →</a>
+      </p>
+    </div>
+  </section>
+  <Footer />
+</Layout>
+
+<style>
+  h1 { margin-block: 14px var(--block-gap); }
+</style>

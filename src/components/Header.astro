@@ -1,0 +1,51 @@
+---
+const nav = [
+  { href: '#work', label: 'Подход' },
+  { href: '#methods', label: 'Методы' },
+  { href: '#articles', label: 'Статьи' },
+  { href: '#about', label: 'Обо мне' },
+  { href: '#contacts', label: 'Контакты' },
+];
+---
+
+<header class="header">
+  <div class="container header__row">
+    <a href="/" class="header__logo">Оксана Чащина</a>
+    <nav class="header__nav">
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+    <a href="#booking" class="header__cta">Записаться</a>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-block: 16px;
+  }
+  .header__logo {
+    font-weight: 500;
+    font-size: var(--fs-body);
+  }
+  .header__nav {
+    display: flex;
+    gap: clamp(16px, 2.5vw, 36px);
+    font-size: var(--fs-small);
+  }
+  .header__cta {
+    font-size: var(--fs-small);
+    color: var(--c-green);
+    font-weight: 450;
+  }
+  @media (max-width: 760px) {
+    .header__nav { display: none; }
+  }
+</style>

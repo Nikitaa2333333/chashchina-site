@@ -1,0 +1,123 @@
+---
+import '@fontsource-variable/onest';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = '' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+  </head>
+  <body>
+    <slot />
+    <script>
+      // Посимвольный ревил заголовков (реф: SplitText — символы
+      // проявляются в случайном порядке, each 0.02s). Режем на спаны
+      // по словам, чтобы не ломать переносы, внутри слова — по буквам.
+      function splitChars(el: Element) {
+        const text = el.textContent ?? '';
+        el.textContent = '';
+        const chars: HTMLElement[] = [];
+        for (const word of text.split(/(\s+)/)) {
+          if (!word) continue;
+          if (/^\s+$/.test(word)) {
+            el.appendChild(document.createTextNode(' '));
+            continue;
+          }
+          const w = document.createElement('span');
+          w.style.display = 'inline-block';
+          for (const ch of word) {
+            const s = document.createElement('span');
+            s.className = 'char';
+            s.textContent = ch;
+            w.appendChild(s);
+            chars.push(s);
+          }
+          el.appendChild(w);
+        }
+        // случайный порядок появления — как stagger from:"random" у рефа
+        const order = chars.map((_, i) => i).sort(() => Math.random() - 0.5);
+        order.forEach((charIdx, pos) => {
+          chars[charIdx].style.setProperty('--char-delay', `${pos * 0.02}s`);
+        });
+      }
+      document.querySelectorAll('[data-split]').forEach(splitChars);
+
+      // Появление блоков при входе в вьюпорт (реф: farmminerals —
+      // мягкий fade/rise, каскад внутри групп)
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-in');
+              io.unobserve(e.target);
+            }
+          }
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
+      );
+      document
+        .querySelectorAll('.reveal, .reveal-group, [data-split]')
+        .forEach((el) => io.observe(el));
+
+      // Лёгкий параллакс полноширинных фото-пауз (.strip)
+      const strips = Array.from(
+        document.querySelectorAll<HTMLImageElement>('.strip img')
+      );
+      if (
+        strips.length &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ) {
+        const loop = () => {
+          const vh = window.innerHeight;
+          for (const img of strips) {
+            const box = img.parentElement!.getBoundingClientRect();
+            if (box.bottom < 0 || box.top > vh) continue;
+            const p = (box.top + box.height / 2 - vh / 2) / (vh / 2 + box.height / 2);
+            img.style.transform = `translateY(${(-p * 10).toFixed(2)}%)`;
+          }
+          requestAnimationFrame(loop);
+        };
+        requestAnimationFrame(loop);
+      }
+    </script>
+    <script>
+      // Русская типографика: висячие предлоги клеятся к следующему
+      // слову неразрывным пробелом — глобальный проход по DOM
+      import { typo } from '../lib/typo';
+
+      function fixTypography(root: HTMLElement | null = document.body) {
+        if (!root) return;
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode(node) {
+            const tag = node.parentElement?.tagName;
+            if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'TEXTAREA' || tag === 'CODE' || tag === 'PRE')
+              return NodeFilter.FILTER_REJECT;
+            return node.nodeValue && node.nodeValue.trim()
+              ? NodeFilter.FILTER_ACCEPT
+              : NodeFilter.FILTER_REJECT;
+          },
+        });
+        const nodes: Text[] = [];
+        let n: Node | null;
+        while ((n = walker.nextNode())) nodes.push(n as Text);
+        for (const t of nodes) {
+          const fixed = typo(t.nodeValue ?? '');
+          if (fixed !== t.nodeValue) t.nodeValue = fixed;
+        }
+      }
+      fixTypography();
+      document.addEventListener('astro:page-load', () => fixTypography());
+    </script>
+  </body>
+</html>

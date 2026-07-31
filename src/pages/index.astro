@@ -1,0 +1,967 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Gallery from '../components/Gallery.astro';
+import Footer from '../components/Footer.astro';
+
+const steps = [
+  {
+    title: 'Разобраться',
+    text: 'Сначала нужно понять, с чем мы имеем дело. Тип старения у всех разный, и от него напрямую зависит, что делать можно, а что бессмысленно или даже вредно. Иногда для этого достаточно осмотра, иногда я прошу сдать анализы: часть проблем с кожей решается не в кабинете косметолога.',
+  },
+  {
+    title: 'Подготовить ткани',
+    text: 'Радиоволновой лифтинг, микротоки, процедуры с очищающим действием — они оздоравливают ткани и сосуды, выводят лишнюю жидкость, возвращают коже плотность и сияние.',
+  },
+  {
+    title: 'Подтянуть и закрепить',
+    text: 'И только когда ткани к этому готовы, есть смысл переходить к мощному лифтингу и закреплять достигнутый результат. В обратном порядке это или не даст эффекта, или даст, но ненадолго.',
+  },
+];
+
+const values = [
+  { t: 'Безопасность технологии', d: 'И для пациента, и для врача — это не обсуждается.' },
+  { t: 'Предсказуемость результата', d: 'Я должна понимать, что именно получится и через какое время, и сказать это вам до начала, а не после.' },
+  { t: 'Ваше участие', d: 'Косметология не работает в отрыве от чекапов, сна, физической нагрузки и управления стрессом. Это не дополнение к процедурам, это их условие.' },
+];
+
+const hardware = [
+  'Световые и лазерные методики',
+  'Радиоволновой лифтинг',
+  'Токи и микротоки',
+  'Фокусированный ультразвук',
+];
+
+const injTasks = [
+  'Качество и увлажнённость кожи',
+  'Объёмы и опора тканей',
+  'Мимические зоны',
+  'Асимметрия',
+];
+
+const zones = ['Шея и кольца Венеры', 'Второй подбородок', 'Кисти, локти, колени'];
+
+const homecare = [
+  'Компоненты, которые работают',
+  'Компоненты, которых лучше избегать',
+  'Домашние гаджеты: где эффект, а где игрушка',
+];
+
+const press = [
+  { src: 'РБК', t: 'Когда лучше принимать коллаген' },
+  { src: 'ТАСС', t: 'Утренние отёки и повышенный кортизол' },
+  { src: 'Газета.ру', t: 'Компоненты косметики, которых лучше избегать' },
+  { src: 'Flacon', t: 'Как работает SMAS-лифтинг' },
+  { src: 'U Magazine', t: 'Устаревшие процедуры и что пришло им на замену' },
+  { src: 'Beautyhack', t: 'Wellness-манифест 2026' },
+];
+
+const rubrics = [
+  'Кожа и внутренние процессы',
+  'Питание и долголетие',
+  'Разбор ингредиентов',
+  'Уход: правила и мифы',
+  'Токсическая нагрузка',
+  'Разбор процедур и методов',
+];
+
+const symptoms = [
+  'Перепробовали десяток уходов, а высыпания всё равно возвращаются.',
+  'Кожа выглядит тусклой и уставшей, хотя объективно ничего не случилось.',
+  'Утром лицо отекает, и вы уже не знаете, на что грешить.',
+  'После лета появились пятна, которые не уходят сами.',
+  'Лицо ещё держится, а шея и руки выдают возраст.',
+  'Хочется подтянуть — но страшно получить чужое лицо вместо своего.',
+];
+---
+
+<Layout
+  title="Оксана Чащина — врач-косметолог, специалист превентивной медицины"
+  description="Врач-косметолог с опытом 22 года. Аппаратные и инъекционные методы, работа с кожей и с внутренними причинами её состояния. Запись на консультацию."
+>
+  <Header />
+
+  <!-- ============ 1. Первый экран ============
+       Слева текст, справа крупное фото; снизу фото — белый градиент,
+       чтобы не было жёсткой границы со вторым блоком. -->
+  <section class="section section--flush-top section--flush-bottom hero">
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <p class="tag reveal">Приём в Москве · аппаратные и инъекционные методы</p>
+        <h1 class="display" data-split>Оксана Чащина</h1>
+        <p class="hero__role reveal" style="--reveal-delay:.12s">
+          Врач-косметолог, специалист превентивной медицины. 22 года практики.
+        </p>
+        <p class="lead reveal" style="--reveal-delay:.18s">
+          Аппарат сам по себе не решает ничего. Решает то, насколько точно
+          понятно, что происходит с вашей кожей — и с организмом, частью
+          которого она является.
+        </p>
+        <div class="hero__cta reveal" style="--reveal-delay:.24s">
+          <a href="#booking" class="btn">Записаться на консультацию</a>
+          <p class="small hero__note">Консультация — 60 минут</p>
+        </div>
+      </div>
+
+      <figure class="hero__photo">
+        <img
+          src="/photos/hero.png"
+          alt="Оксана Чащина — врач-косметолог"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ Галерея (приём из prmpt: скейл карточек от скролла) ============ -->
+  <Gallery />
+
+  <!-- ============ 2. С чем приходят ============ -->
+  <section class="section" id="work">
+    <div class="container">
+      <p class="tag reveal">С чем приходят</p>
+      <h2 data-split>Возможно, вам это знакомо</h2>
+      <ul class="cards reveal-group">
+        {symptoms.map((text, i) => (
+          <li class="cards__item">
+            <span class="tag cards__num">{String(i + 1).padStart(2, '0')}</span>
+            <p>{text}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="reveal">
+        Если узнали себя <mark>хотя бы в одном пункте</mark> — дальше о том,
+        как я с этим работаю.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 3. Две половины одной работы ============
+       Контрастный сплит-экран: светлая и тёмная половины -->
+  <section class="halves-split" id="halves">
+    <div class="halves-split__col halves-split__col--light">
+      <div class="halves-split__inner">
+        <p class="tag reveal">Две половины одной работы · 01</p>
+        <h2 class="halves-split__title" data-split>Снаружи</h2>
+        <p class="reveal">
+          Лазеры, фокусированный ультразвук, радиоволновой лифтинг, токи.
+          Всё, что делается с кожей и мягкими тканями непосредственно —
+          с понятной глубиной воздействия и предсказуемым результатом.
+        </p>
+      </div>
+    </div>
+    <div class="halves-split__col theme-dark">
+      <div class="halves-split__inner">
+        <p class="tag reveal">Две половины одной работы · 02</p>
+        <h2 class="halves-split__title" data-split>Изнутри</h2>
+        <p class="reveal">
+          Хроническое воспаление, окислительный стресс, гликация, дефициты,
+          качество сна. Всё, из-за чего кожа стареет быстрее и хуже
+          восстанавливается — и что не исправить ни одним аппаратом.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Тёмная контрастная секция (реф: hero croptab на глубоком олива) -->
+  <section class="section theme-dark">
+    <div class="container">
+      <p class="tag reveal">Два механизма, о которых редко говорят</p>
+      <div class="mechanisms reveal-group">
+        <div class="mechanisms__item">
+          <h3>Инфламэйджинг</h3>
+          <p>
+            Старение через хроническое воспаление. Оно может быть незаметным,
+            но при этом годами поддерживать высыпания, замедлять восстановление
+            и разрушать коллаген.
+          </p>
+        </div>
+        <div class="mechanisms__item">
+          <h3>Гликация</h3>
+          <p>
+            Повреждение белков избытком сахара. Именно из-за неё коллаген
+            теряет эластичность, а кожа — упругость, независимо от того,
+            что вы наносите сверху.
+          </p>
+        </div>
+      </div>
+      <hr class="rule mechanisms__rule" />
+      <p class="lead reveal">
+        Кожа — самый большой орган человека. Работая с ней, мы включаем
+        процессы и в окружающих тканях. Поэтому антивозрастная работа — это
+        работа с организмом целиком, а не с отдельной морщиной.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ Цифры (реф: numbers-list «1 tablet = 2.5 acres») ============ -->
+  <section class="section" id="facts">
+    <div class="container">
+      <div class="facts reveal-group">
+        <div class="facts__row">
+          <span class="facts__val">22 года</span>
+          <span class="tag">практики в косметологии и превентивной медицине</span>
+        </div>
+        <div class="facts__row">
+          <span class="facts__val">60 минут</span>
+          <span class="tag">длится консультация — с разбором, а не «на бегу»</span>
+        </div>
+        <div class="facts__row">
+          <span class="facts__val">3 ступени</span>
+          <span class="tag">разобраться → подготовить ткани → подтянуть и закрепить</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. Как строится работа ============ -->
+  <section class="section" id="steps">
+    <div class="container">
+      <p class="tag reveal">Как строится работа</p>
+      <h2 data-split>Почему я не начинаю с лифтинга</h2>
+      <div class="spec reveal-group">
+        {steps.map((s, i) => (
+          <div class="spec__row">
+            <span class="tag">0{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </div>
+        ))}
+      </div>
+      <p class="tag spec__sub reveal">Что для меня важно</p>
+      <div class="triple reveal-group">
+        {values.map((v) => (
+          <div>
+            <h3>{v.t}</h3>
+            <p>{v.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Фото-пауза: полноширинный кадр с параллаксом -->
+  <figure class="strip">
+    <img src="/photos/web/strip1.webp" alt="" loading="lazy" decoding="async" />
+  </figure>
+
+  <!-- ============ 5. Аппаратные методы ============ -->
+  <section class="section section--surface" id="methods">
+    <div class="container">
+      <p class="tag reveal">Аппаратные методы</p>
+      <h2 data-split>Что происходит с тканями</h2>
+      <p class="lead reveal">
+        Ниже — не перечень аппаратов, а объяснение того, что каждый метод
+        делает с кожей. Торговые названия имеет смысл обсуждать уже
+        на консультации, когда понятна задача.
+      </p>
+      <div class="passport reveal-group">
+        {hardware.map((h, i) => (
+          <div class="passport__card">
+            <span class="tag">0{i + 1}</span>
+            <h3>{h}</h3>
+          </div>
+        ))}
+      </div>
+      <div class="quit reveal">
+        <h3>Чего я больше не делаю</h3>
+        <p>
+          Косметология меняется быстро, и часть процедур, популярных десять лет
+          назад, сегодня либо неэффективна, либо вытеснена более безопасными
+          методами. Я о них рассказываю честно — в том числе о тех, что мне
+          самой когда-то нравились.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. Гравитационный птоз и SMAS ============ -->
+  <section class="section" id="smas">
+    <div class="container split">
+      <div>
+        <p class="tag reveal">Гравитационный птоз</p>
+        <h2 data-split>Что можно сделать с овалом</h2>
+        <p class="reveal">
+          С возрастом провисает не столько кожа, сколько то, на чём она
+          держится — внутренний каркас лица. Поэтому кремы и поверхностные
+          процедуры на овал почти не влияют: они работают выше, а проблема
+          глубже.
+        </p>
+      </div>
+      <figure class="split__photo reveal">
+        <img src="/photos/web/09.webp" alt="Оксана Чащина" loading="lazy" decoding="async" />
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 7. Инъекционные методы ============ -->
+  <section class="section section--surface" id="injections">
+    <div class="container">
+      <p class="tag reveal">Инъекционные методы</p>
+      <h2 data-split>Чего можно достичь</h2>
+      <p class="lead reveal">
+        Говорю не о препаратах, а о задачах. Препарат подбирается под задачу,
+        а не наоборот.
+      </p>
+      <div class="passport reveal-group">
+        {injTasks.map((t, i) => (
+          <div class="passport__card">
+            <span class="tag">0{i + 1}</span>
+            <h3>{t}</h3>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. Зоны, которые выдают возраст ============ -->
+  <section class="section" id="zones">
+    <div class="container">
+      <p class="tag reveal">Зоны, которые выдают возраст</p>
+      <h2 data-split>Лицо ещё держится, а шея выдаёт</h2>
+      <p class="lead reveal">
+        Возраст читается не по лбу и не по носогубным складкам. Первыми выдают
+        шея, зона декольте, кисти рук — и именно им обычно достаётся меньше
+        всего внимания.
+      </p>
+      <ul class="zones reveal-group">
+        {zones.map((z) => (
+          <li>
+            <h3>{z}</h3>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 9. Красота начинается не с крема ============ -->
+  <section class="section theme-dark" id="inside">
+    <div class="container">
+      <p class="tag reveal">Про внутреннее</p>
+      <p class="manifesto reveal">
+        Красота начинается <mark>не с крема</mark>
+      </p>
+      <div class="manifesto__cols reveal-group">
+        <p>
+          Состояние кожи во многом определяется тем, что происходит внутри.
+          Хроническое воспаление, окислительный стресс, состояние кишечника,
+          дефициты, качество сна — всё это отражается на лице раньше, чем
+          мы связываем одно с другим.
+        </p>
+        <p>
+          Я не верю в одну молекулу, которая решит все проблемы. Красивая
+          кожа — это всегда результат комплексной работы: домашнего ухода,
+          процедур по показаниям, питания, образа жизни и здоровья организма
+          в целом.
+        </p>
+      </div>
+      <a class="link-arrow reveal" href="#articles">Читать статьи →</a>
+    </div>
+  </section>
+
+  <!-- ============ 10. Домашний уход ============ -->
+  <section class="section" id="homecare">
+    <div class="container split split--reverse">
+      <figure class="split__photo reveal">
+        <img src="/photos/web/07.webp" alt="Оксана Чащина" loading="lazy" decoding="async" />
+      </figure>
+      <div>
+        <p class="tag reveal">Домашний уход</p>
+        <h2 data-split>Что действительно работает дома</h2>
+        <p class="reveal">
+          Домашний уход иногда решает больше, чем процедуры. Но вокруг него
+          столько маркетинга, что разобраться самостоятельно почти невозможно.
+        </p>
+        <ul class="list-plain reveal-group">
+          {homecare.map((h) => (
+            <li>
+              <h3>{h}</h3>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 12–13. Соцсети и СМИ ============ -->
+  <section class="section section--surface" id="press">
+    <div class="container">
+      <p class="tag reveal">Публикации в СМИ</p>
+      <h2 data-split>Меня спрашивают</h2>
+      <p class="lead reveal">
+        За годы практики меня приглашали комментировать РБК, ТАСС, АиФ,
+        Cosmopolitan, Harper's Bazaar, Wonderzine, The Blueprint и другие
+        издания. Здесь собрано главное.
+      </p>
+      <div class="pressrows reveal-group">
+        {press.map((p) => (
+          <div class="pressrows__row">
+            <span class="tag">{p.src}</span>
+            <h3>{p.t}</h3>
+            <span class="pressrows__arrow" aria-hidden="true">→</span>
+          </div>
+        ))}
+      </div>
+      <div class="socials reveal">
+        <p>
+          Если пока не готовы записываться — подписывайтесь. Разбираю то,
+          о чём чаще всего спрашивают на приёме: ингредиенты, процедуры,
+          питание и мифы вокруг них.
+        </p>
+        <nav class="socials__links">
+          <a href="https://t.me/krasotanasspaset">Telegram</a>
+          <a href="https://vk.com/krasotanasspaset">ВКонтакте</a>
+          <a href="https://dzen.ru/id/6237172c60d2e66b912c755f">Дзен</a>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 14. Обо мне ============ -->
+  <section class="section" id="about">
+    <div class="container">
+      <p class="tag reveal">Обо мне</p>
+      <h2 data-split>Ради чего всё это</h2>
+      <p class="lead reveal">
+        Дожить можно и до ста, и до ста двадцати лет — учёные говорят, что
+        это реально. Вопрос в том, каким будет качество жизни в эти годы.
+        <mark>Ради него всё и делается.</mark>
+      </p>
+      <details class="edu reveal">
+        <summary>
+          <span>Образование и квалификация</span>
+          <span class="edu__cross" aria-hidden="true"></span>
+        </summary>
+        <div class="edu__body">
+          <div class="edu__col">
+            <p class="tag">Образование</p>
+            <ul>
+              <li>1997–2002 — СибГМУ, лечебный факультет</li>
+              <li>2002–2004 — МГМСУ, «Лечебное дело»</li>
+              <li>2004–2006 — РМАПО, ординатура по дерматовенерологии</li>
+              <li>2010–2011 — МГМСУ, интернатура по хирургии</li>
+              <li>2011–2012 — МИУВ МГУПП, переподготовка по косметологии</li>
+              <li>2013 — ИППО ФМБЦ им. Бурназяна, физиотерапия</li>
+              <li>2022 — организация здравоохранения и общественное здоровье</li>
+            </ul>
+          </div>
+          <div class="edu__col">
+            <p class="tag">Опыт</p>
+            <ul>
+              <li>2004–2011 — врач-косметолог</li>
+              <li>2011–2018 — клиника антиэйджинга, заведующая отделением эстетики тела</li>
+              <li>2018–2021 и с 2022 — сеть клиник «Атлас»</li>
+              <li>2021–2022 — «Олимп Клиник»</li>
+            </ul>
+            <p class="tag">Сообщества</p>
+            <ul>
+              <li>Ассоциация косметологов и мезотерапевтов</li>
+              <li>Ассоциация специалистов эстетической медицины ЦВЕ</li>
+              <li>PreventAge</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ 15–16. Статьи и отзывы ============ -->
+  <section class="section section--surface" id="articles">
+    <div class="container">
+      <p class="tag reveal">Статьи</p>
+      <h2 data-split>Разбираю то, о чём спрашивают</h2>
+      <p class="lead reveal">
+        Ингредиенты, процедуры, питание, уход и мифы вокруг всего этого —
+        по рубрикам.
+      </p>
+      <ul class="rubrics reveal-group">
+        {rubrics.map((r, i) => (
+          <li>
+            <span class="tag">0{i + 1}</span>
+            <h3>{r}</h3>
+          </li>
+        ))}
+      </ul>
+      <p class="reveal">
+        Отзывы обо мне — на независимых площадках:
+        <a class="link-arrow" href="https://health.yandex.ru">Яндекс.Здоровье →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Фото-пауза перед финалом -->
+  <figure class="strip">
+    <img src="/photos/web/strip2.webp" alt="" loading="lazy" decoding="async" />
+  </figure>
+
+  <!-- ============ 17. Запись — тёмный финал ============ -->
+  <section class="section theme-dark" id="booking">
+    <div class="container split">
+      <div>
+        <p class="tag reveal">Запись</p>
+        <h2 data-split>Записаться на консультацию</h2>
+        <p class="reveal">
+          Оставьте номер — я или мой помощник свяжемся с вами, ответим
+          на вопросы и подберём удобное время.
+        </p>
+        <p class="small reveal" id="contacts">
+          Телефон, почта и адрес приёма — уточняются. Мессенджеры:
+          <a href="https://t.me/krasotanasspaset">Telegram</a>
+        </p>
+      </div>
+      <form class="form reveal" action="/thanks" method="get">
+        <label>
+          <span class="tag">Имя</span>
+          <input type="text" name="name" required autocomplete="name" />
+        </label>
+        <label>
+          <span class="tag">Телефон</span>
+          <input type="tel" name="phone" required autocomplete="tel" />
+        </label>
+        <label>
+          <span class="tag">Комментарий (необязательно)</span>
+          <input type="text" name="comment" />
+        </label>
+        <label class="form__check">
+          <input type="checkbox" required />
+          <span class="small">Согласен(на) на обработку персональных данных</span>
+        </label>
+        <button class="btn" type="submit">Отправить</button>
+      </form>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* ---------- Hero ---------- */
+  /* Подзаголовок «кто она» — полноценный заголовочный уровень под именем,
+     не микролейбл. Размер держит одну строку на ~1280 CSS-px. */
+  .hero__role {
+    margin-top: 16px;
+    font-size: clamp(19px, 2.2vw, 28px);
+    font-weight: 330;
+    line-height: var(--lh-head);
+    letter-spacing: -0.01em;
+  }
+  .hero__row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--block-gap);
+    margin-top: var(--block-gap);
+    flex-wrap: wrap;
+  }
+  .hero__cta { flex-shrink: 0; }
+  .hero__note {
+    margin-top: 10px;
+    color: var(--c-green);
+  }
+  .hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 52%);
+    gap: clamp(20px, 3vw, 56px);
+    align-items: center;
+  }
+  .hero__text { padding-block: var(--section-gap-tight); }
+  .hero__text .tag { margin-bottom: 18px; display: block; }
+  .hero__text .lead { margin-top: var(--block-gap); }
+  .hero__cta { margin-top: var(--block-gap); }
+
+  /* Фото крупное; белый градиент снизу наезжает на кадр,
+     чтобы граница со следующим блоком не была ровной линией */
+  .hero__photo {
+    position: relative;
+    margin: 0;
+    overflow: hidden; /* увеличенный портрет не вылезает за секцию */
+  }
+  /* Вырезанный портрет (png, прозрачные поля срезаны по контуру):
+     без кропа, прижат к низу, заполняет рамку целиком */
+  .hero__photo img {
+    width: 100%;
+    height: min(96svh, 900px);
+    object-fit: contain;
+    object-position: center bottom;
+  }
+  .hero__photo::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 32%;
+    background: linear-gradient(to top, var(--c-bg) 12%, transparent);
+    pointer-events: none;
+  }
+  @media (max-width: 860px) {
+    .hero__grid { grid-template-columns: 1fr; }
+    .hero__photo img { height: min(70svh, 560px); }
+  }
+
+  /* ---------- С чем приходят ---------- */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(20px, 3vw, 44px) clamp(20px, 3vw, 40px);
+    margin-block: var(--block-gap);
+  }
+  .cards__item + .cards__item { margin-top: 0; }
+  /* Сценарии — смысловой центр секции, читаются крупно, как лид */
+  .cards__item p {
+    font-size: var(--fs-h3);
+    font-weight: 380;
+    line-height: 1.4;
+  }
+  .cards__num {
+    display: block;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 980px) {
+    .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 620px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Две половины: контрастный сплит-экран ---------- */
+  .halves-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .halves-split__col {
+    padding: var(--section-gap) var(--gutter);
+    display: flex;
+    align-items: center;
+    min-height: min(72svh, 700px);
+  }
+  .halves-split__col--light { background: var(--c-surface); }
+  .halves-split__inner {
+    max-width: 520px;
+    margin-inline: auto;
+  }
+  .halves-split__title {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-tight);
+    margin-block: 18px 22px;
+    max-width: none;
+  }
+  @media (max-width: 860px) {
+    .halves-split { grid-template-columns: 1fr; }
+    .halves-split__col { min-height: 0; }
+  }
+
+  /* ---------- Механизмы (тёмная секция) ---------- */
+  .mechanisms {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(24px, 4vw, 64px);
+    margin-top: var(--block-gap);
+  }
+  .mechanisms__item h3 { margin-bottom: 12px; }
+  .mechanisms__rule { margin-block: var(--block-gap); }
+  @media (max-width: 760px) {
+    .mechanisms { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Спек-лист (реф: numbers-list с hairline) ---------- */
+  .spec { margin-top: var(--block-gap); }
+  .spec__row {
+    display: grid;
+    grid-template-columns: 60px minmax(0, 30%) minmax(0, 1fr);
+    gap: 16px clamp(16px, 3vw, 48px);
+    align-items: start;
+    padding-block: clamp(18px, 2.5vw, 28px);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .spec__row:first-child { border-top: 1px solid var(--c-line); }
+  .spec__sub { display: block; margin-top: var(--block-gap); margin-bottom: 8px; }
+  @media (max-width: 760px) {
+    .spec__row { grid-template-columns: 48px minmax(0, 1fr); }
+    .spec__row p { grid-column: 2; }
+  }
+
+  /* Три равные колонки */
+  .triple {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(20px, 3vw, 48px);
+    margin-top: 12px;
+  }
+  .triple h3 { margin-bottom: 10px; }
+  @media (max-width: 760px) {
+    .triple { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Карточки-паспорта (реф: карточка нутриента N/P/K) ---------- */
+  .passport {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(12px, 1.5vw, 20px);
+    margin-top: var(--block-gap);
+  }
+  .passport__card {
+    background: var(--c-bg);
+    padding: clamp(16px, 2vw, 26px);
+    min-height: clamp(160px, 18vw, 230px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .section:not(.section--surface) .passport__card { background: var(--c-surface); }
+  .passport__card h3 { max-width: 14ch; }
+  @media (max-width: 900px) {
+    .passport { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  .quit {
+    margin-top: var(--block-gap);
+    max-width: var(--measure-lead);
+  }
+  .quit h3 { margin-bottom: 10px; }
+
+  /* ---------- Сплит текст + фото ---------- */
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 44%);
+    gap: clamp(24px, 4vw, 72px);
+    align-items: center;
+  }
+  .split--reverse { grid-template-columns: minmax(0, 44%) minmax(0, 1fr); }
+  .split h2 { margin-bottom: var(--block-gap); }
+  .split__photo { margin: 0; }
+  .split__photo img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+  @media (max-width: 860px) {
+    .split, .split--reverse { grid-template-columns: 1fr; }
+    .split--reverse .split__photo { order: 2; }
+  }
+
+  /* ---------- Зоны и простые списки ---------- */
+  .zones, .list-plain { margin-top: var(--block-gap); }
+  .zones li, .list-plain li {
+    padding-block: 12px;
+  }
+  .list-plain { margin-top: var(--block-gap); }
+
+  /* ---------- СМИ ---------- */
+  .press {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(12px, 1.5vw, 20px);
+    margin-top: var(--block-gap);
+  }
+  .press__card {
+    background: var(--c-bg);
+    padding: clamp(16px, 2vw, 26px);
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .press__card h3 { max-width: 24ch; }
+  @media (max-width: 860px) {
+    .press { grid-template-columns: 1fr; }
+    .press__card { min-height: 0; }
+  }
+
+  .socials {
+    margin-top: var(--block-gap);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 48px;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .socials p { max-width: var(--measure-lead); }
+  .socials__links { display: flex; gap: 28px; color: var(--c-green); }
+
+  /* ---------- Обо мне: свёрнутый блок с крестиком из двух линий ---------- */
+  .edu {
+    margin-top: var(--block-gap);
+    border-top: 1px solid var(--c-line);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .edu summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding-block: 18px;
+    cursor: pointer;
+    list-style: none;
+    font-size: var(--fs-h3);
+    font-weight: 420;
+  }
+  .edu summary::-webkit-details-marker { display: none; }
+  .edu__cross {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  .edu__cross::before,
+  .edu__cross::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 0;
+    width: 100%;
+    height: 1px;
+    background: var(--c-green);
+    transition: transform var(--t-hover);
+  }
+  .edu__cross::before { transform: rotate(90deg); }
+  .edu[open] .edu__cross::before { transform: rotate(0deg); }
+  .edu__body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(20px, 3vw, 48px);
+    padding-block: 6px 26px;
+  }
+  .edu__body .tag { display: block; margin-bottom: 10px; }
+  .edu__body ul { margin-bottom: 20px; }
+  .edu__body li + li { margin-top: 8px; }
+  @media (max-width: 760px) {
+    .edu__body { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Рубрики статей ---------- */
+  .rubrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 32px);
+    margin-block: var(--block-gap);
+  }
+  .rubrics li + li { margin-top: 0; }
+  .rubrics .tag { display: block; margin-bottom: 8px; }
+  @media (max-width: 760px) {
+    .rubrics { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Форма (реф: инпуты только с нижней границей) ---------- */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .form label { display: block; }
+  .form .tag { display: block; margin-bottom: 6px; }
+  .form input[type='text'],
+  .form input[type='tel'] {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid var(--c-line);
+    background: transparent;
+    padding: 6px 2px 10px;
+    font-size: var(--fs-body);
+    color: var(--c-ink);
+  }
+  .form input:focus {
+    outline: none;
+    border-bottom-color: var(--c-green);
+  }
+  .form__check {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .form__check input {
+    margin-top: 4px;
+    accent-color: var(--c-green-deep);
+  }
+  .form .btn { align-self: flex-start; }
+
+  /* Форма на тёмном финале */
+  .theme-dark .form input[type='text'],
+  .theme-dark .form input[type='tel'] {
+    color: var(--c-white);
+    border-bottom-color: rgba(255, 255, 255, 0.35);
+  }
+  .theme-dark .form input:focus { border-bottom-color: var(--c-green-pale); }
+  .theme-dark .form__check input { accent-color: var(--c-green-pale); }
+  .theme-dark .link-arrow { color: var(--c-green-pale); }
+
+  /* ---------- Цифры (реф: numbers-list «1 tablet = 2.5 acres») ---------- */
+  .facts__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+    gap: 12px clamp(20px, 4vw, 64px);
+    align-items: end;
+    padding-block: clamp(14px, 2vw, 22px);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .facts__row:first-child { border-top: 1px solid var(--c-line); }
+  .facts__val {
+    font-size: clamp(34px, 4.8vw, 68px);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--c-green);
+  }
+  .facts__row .tag { padding-bottom: 6px; }
+  @media (max-width: 700px) {
+    .facts__row { grid-template-columns: 1fr; align-items: start; }
+  }
+
+  /* ---------- Фото-пауза с параллаксом ---------- */
+  .strip {
+    margin: 0;
+    overflow: hidden;
+    height: clamp(320px, 58vh, 560px);
+  }
+  .strip img {
+    width: 100%;
+    height: 130%;
+    margin-top: -15%;
+    object-fit: cover;
+    object-position: center 30%;
+    will-change: transform;
+  }
+
+  /* ---------- Пресса: editorial-строки ---------- */
+  .pressrows { margin-top: var(--block-gap); }
+  .pressrows__row {
+    display: grid;
+    grid-template-columns: clamp(90px, 12vw, 160px) minmax(0, 1fr) auto;
+    gap: 12px clamp(16px, 3vw, 40px);
+    align-items: baseline;
+    padding-block: clamp(14px, 2vw, 20px);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .pressrows__row:first-child { border-top: 1px solid var(--c-line); }
+  .pressrows__row h3 {
+    transition: transform 0.3s var(--ease-out);
+    max-width: none;
+  }
+  .pressrows__row:hover h3 { transform: translateX(10px); }
+  .pressrows__arrow { color: var(--c-green); }
+  @media (max-width: 700px) {
+    .pressrows__row { grid-template-columns: minmax(0, 1fr) auto; }
+    .pressrows__row .tag { grid-column: 1 / -1; }
+  }
+
+  /* ---------- Манифест на тёмном ---------- */
+  .manifesto {
+    font-size: clamp(36px, 5.5vw, 84px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    max-width: 18ch;
+    margin-block: 18px var(--block-gap);
+  }
+  .manifesto__cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(20px, 3vw, 56px);
+    margin-bottom: var(--block-gap);
+  }
+  @media (max-width: 760px) {
+    .manifesto__cols { grid-template-columns: 1fr; }
+  }
+</style>
