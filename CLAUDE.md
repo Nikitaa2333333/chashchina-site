@@ -10,13 +10,13 @@
 ## Команды
 
 - `npm run dev` — дев-сервер на `127.0.0.1:4321` (хост обязателен, порт свой).
-  Сайт живёт на **http://127.0.0.1:4321/oxana-chashchina/** — задан `base: '/oxana-chashchina'`.
+  Сайт живёт на **http://127.0.0.1:4321/dr.chashchina/** — задан `base: '/dr.chashchina'`.
 - `npm run build` / `npm run preview` (порт 4322).
 
 ## Деплой
 
-GitHub Pages: `site: 'https://Nikitaa2333333.github.io'`, `base: '/oxana-chashchina'`
-(репозиторий `oxana-chashchina`, папка локально может называться иначе).
+GitHub Pages: `site: 'https://Nikitaa2333333.github.io'`, `base: '/dr.chashchina'`
+(репозиторий `dr.chashchina`, папка локально может называться иначе).
 **Все пути к ассетам и внутренним страницам — только через `asset()` из
 [src/lib/asset.ts](src/lib/asset.ts)** — он нормализует слэш после BASE_URL.
 Голая склейка `import.meta.env.BASE_URL + 'x'` даёт `/oxankax` и уже ломала фотки.
