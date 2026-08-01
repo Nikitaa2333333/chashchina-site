@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Gallery from '../components/Gallery.astro';
 import Footer from '../components/Footer.astro';
+import { asset } from '../lib/asset';
 
 const steps = [
   {
@@ -141,7 +142,7 @@ const path = [
 
       <figure class="hero__photo">
         <img
-          src={import.meta.env.BASE_URL + "photos/hero.png"}
+          src={asset('photos/hero.png')}
           alt="Оксана Чащина — врач-косметолог"
           loading="eager"
           fetchpriority="high"
@@ -200,7 +201,7 @@ const path = [
       <div class="halves-split__col halves-split__col--sage">
         <video
           class="halves-split__video"
-          src={import.meta.env.BASE_URL + "video/serum.mp4"}
+          src={asset('video/serum.mp4')}
           autoplay
           muted
           loop
@@ -280,7 +281,7 @@ const path = [
 
   <!-- Фото-пауза: во всю ширину экрана -->
   <figure class="strip">
-    <img src={import.meta.env.BASE_URL + "photos/web/strip1.webp"} alt="Оксана Чащина на приёме" loading="lazy" decoding="async" />
+    <img src={asset('photos/web/strip1.webp')} alt="Оксана Чащина на приёме" loading="lazy" decoding="async" />
     <figcaption class="strip__cap">
       <span>
         Процедуры работают, когда понятна причина. Тип старения у всех
@@ -295,7 +296,8 @@ const path = [
   </figure>
 
   <!-- ============ 5. Аппаратные методы ============ -->
-  <section class="section section--surface" id="methods">
+  <!-- Процедурный трек («снаружи») — розовая плашка и розовые бирки -->
+  <section class="section section--rose accent-rose" id="methods">
     <div class="container">
       <p class="tag reveal">Аппаратные методы</p>
       <h2 data-split>Что происходит с тканями</h2>
@@ -304,16 +306,37 @@ const path = [
         делает с кожей. Торговые названия имеет смысл обсуждать уже
         на консультации, когда понятна задача.
       </p>
-      <div class="passport reveal-group">
+      <div class="passport passport--bento reveal-group">
         {hardware.map((h, i) => (
-          <div class="passport__card">
-            <span class="tag">0{i + 1}</span>
-            <div class="passport__body">
-              <h3>{h.t}</h3>
-              <p class="passport__desc">{h.d1}</p>
-              <p class="passport__desc">{h.d2}</p>
+          i === 3 ? (
+            <div class="passport__card passport__card--feature">
+              <div class="passport__feature-text">
+                <span class="tag">0{i + 1}</span>
+                <div class="passport__body">
+                  <h3>{h.t}</h3>
+                  <p class="passport__desc">{h.d}</p>
+                </div>
+              </div>
+              <video
+                class="passport__video"
+                src={asset('video/ripple.mp4')}
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-hidden="true"
+              ></video>
             </div>
-          </div>
+          ) : (
+            <div class="passport__card">
+              <span class="tag">0{i + 1}</span>
+              <div class="passport__body">
+                <h3>{h.t}</h3>
+                <p class="passport__desc">{h.d}</p>
+              </div>
+            </div>
+          )
         ))}
       </div>
       <div class="quit reveal">
@@ -342,13 +365,14 @@ const path = [
         </p>
       </div>
       <figure class="split__photo reveal">
-        <img src={import.meta.env.BASE_URL + "photos/web/09.webp"} alt="Оксана Чащина" loading="lazy" decoding="async" />
+        <img src={asset('photos/web/09.webp')} alt="Оксана Чащина" loading="lazy" decoding="async" />
       </figure>
     </div>
   </section>
 
   <!-- ============ 7. Инъекционные методы ============ -->
-  <section class="section section--surface" id="injections">
+  <!-- Процедурный трек («снаружи») — розовая плашка и розовые бирки -->
+  <section class="section section--rose accent-rose" id="injections">
     <div class="container">
       <p class="tag reveal">Инъекционные методы</p>
       <h2 data-split>Чего можно достичь</h2>
@@ -371,7 +395,8 @@ const path = [
   </section>
 
   <!-- ============ 8. Зоны, которые выдают возраст ============ -->
-  <section class="section" id="zones">
+  <!-- Процедурный трек («снаружи») — белый фон, розовые бирки -->
+  <section class="section accent-rose" id="zones">
     <div class="container">
       <p class="tag reveal">Зоны, которые выдают возраст</p>
       <h2 data-split>Лицо ещё держится, а шея выдаёт</h2>
@@ -416,10 +441,11 @@ const path = [
   </section>
 
   <!-- ============ 10. Домашний уход ============ -->
-  <section class="section" id="homecare">
+  <!-- Уход — тоже внешняя линия: розовые бирки -->
+  <section class="section accent-rose" id="homecare">
     <div class="container split split--reverse">
       <figure class="split__photo reveal">
-        <img src={import.meta.env.BASE_URL + "photos/web/07.webp"} alt="Оксана Чащина" loading="lazy" decoding="async" />
+        <img src={asset('photos/web/07.webp')} alt="Оксана Чащина" loading="lazy" decoding="async" />
       </figure>
       <div>
         <p class="tag reveal">Домашний уход</p>
@@ -528,7 +554,7 @@ const path = [
 
   <!-- Фото-пауза перед финалом: во всю ширину экрана -->
   <figure class="strip">
-    <img src={import.meta.env.BASE_URL + "photos/web/strip2.webp"} alt="Оксана Чащина" loading="lazy" decoding="async" />
+    <img src={asset('photos/web/strip2.webp')} alt="Оксана Чащина" loading="lazy" decoding="async" />
     <figcaption class="strip__cap">
       <span>
         За час консультации мы разбираем кожу, привычки, сон и анализы.
@@ -556,7 +582,7 @@ const path = [
           <a href="https://t.me/krasotanasspaset">Telegram</a>
         </p>
       </div>
-      <form class="form reveal" action={`${import.meta.env.BASE_URL}thanks`} method="get">
+      <form class="form reveal" action={asset('thanks')} method="get">
         <label>
           <span class="tag">Имя</span>
           <input type="text" name="name" required autocomplete="name" />
@@ -686,7 +712,9 @@ const path = [
     align-items: center;
     min-height: min(72svh, 700px);
   }
-  .halves-split__col--light { background: var(--c-surface); }
+  /* «Снаружи» — розовая (эстетическая линия), «Изнутри» — зелёная (медицинская) */
+  .halves-split__col--light { background: var(--c-rose-surface); }
+  .halves-split__col--light .tag { color: var(--c-rose); }
   /* Шалфей вместо глубокого зелёного: контраст половин остаётся,
      но с тёмной секцией ниже блок больше не сливается.
      Фоном — футаж с серумом, поверх него шалфейная вуаль:
@@ -790,6 +818,8 @@ const path = [
     align-items: flex-start;
   }
   .section:not(.section--surface) .passport__card { background: var(--c-surface); }
+  /* На пудровой плашке карточки — чисто белые, серо-зелёный тут спорит с фоном */
+  .section--rose .passport__card { background: var(--c-bg); }
   .passport__card h3 { max-width: 14ch; }
   .passport__body { margin-top: clamp(28px, 4vw, 56px); }
   .passport__desc {
@@ -800,6 +830,39 @@ const path = [
   }
   @media (max-width: 900px) {
     .passport { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  /* Бенто аппаратных методов: три обычные плашки в ряд,
+     четвёртая — широкая, на пастельно-розовой подложке и с футажом.
+     Рябь на видео читается как волна — метафора ультразвука. */
+  .passport--bento { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .passport__card--feature {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    padding: 0;
+    min-height: clamp(260px, 30vw, 400px);
+  }
+  /* специфичность выше правила .section:not(...) .passport__card */
+  .section:not(.section--surface) .passport__card--feature {
+    background: var(--c-rose-pale);
+  }
+  .passport__feature-text {
+    padding: clamp(16px, 2vw, 26px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .passport__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media (max-width: 900px) {
+    .passport--bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .passport__card--feature { grid-template-columns: 1fr; min-height: 0; }
+    .passport__video { aspect-ratio: 16 / 10; height: auto; }
   }
 
   .quit {
@@ -1001,7 +1064,7 @@ const path = [
   }
   .strip__cap span { max-width: 30ch; }
   @media (max-width: 700px) {
-    .strip__cap { flex-direction: column; align-items: flex-start; gap: 14px; padding-top: 90px; }
+    .strip__cap { flex-direction: column; align-items: flex-start; gap: 14px; padding-top: 60px; }
   }
 
   /* ---------- Пресса: editorial-строки ---------- */

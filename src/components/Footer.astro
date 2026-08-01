@@ -1,5 +1,6 @@
 ---
 // Футер: тёмная полоса-примечание (реф: .drop-note) + служебная строка
+import { asset } from '../lib/asset';
 ---
 
 <footer class="footer">
@@ -15,7 +16,7 @@
       <a href="https://vk.com/krasotanasspaset">ВКонтакте</a>
       <a href="https://dzen.ru/id/6237172c60d2e66b912c755f">Дзен</a>
     </nav>
-    <a class="small footer__policy" href={`${import.meta.env.BASE_URL}policy`}>Политика обработки персональных данных</a>
+    <a class="small footer__policy" href={asset('policy')}>Политика обработки персональных данных</a>
   </div>
 </footer>
 

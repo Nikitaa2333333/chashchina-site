@@ -9,6 +9,7 @@
     "preview": "astro preview --host 127.0.0.1 --port 4322"
   },
   "dependencies": {
+    "@fontsource-variable/lora": "^5.3.0",
     "@fontsource-variable/onest": "^5.3.0",
     "astro": "^5.12.0"
   }
