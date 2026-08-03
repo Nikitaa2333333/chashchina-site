@@ -1,4 +1,6 @@
 ---
+// Каркас шапки. Оформление снято вместе со старым дизайном —
+// цвет, кегль, вес и поведение при скролле задавать заново.
 const nav = [
   { href: '#work', label: 'Подход' },
   { href: '#methods', label: 'Методы' },
@@ -31,19 +33,9 @@ const nav = [
     gap: 24px;
     padding-block: 16px;
   }
-  .header__logo {
-    font-weight: 500;
-    font-size: var(--fs-body);
-  }
   .header__nav {
     display: flex;
-    gap: clamp(16px, 2.5vw, 36px);
-    font-size: var(--fs-small);
-  }
-  .header__cta {
-    font-size: var(--fs-small);
-    color: var(--c-green);
-    font-weight: 450;
+    gap: 24px;
   }
   @media (max-width: 760px) {
     .header__nav { display: none; }

@@ -1,8 +1,5 @@
 ---
-import '@fontsource-variable/onest';
-import '@fontsource-variable/lora';
 import '../styles/global.css';
-import '../styles/variants.css';
 
 interface Props {
   title: string;
@@ -19,53 +16,9 @@ const { title, description = '' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
-    <script is:inline>
-      // Превью-вариации дизайна: ?v=plates|serif|mocha|base,
-      // выбор запоминается. Скрипт в head — чтобы не мигало базой.
-      (function () {
-        var p = new URLSearchParams(location.search);
-        var v = p.get('v');
-        if (v) {
-          // применяем один раз и стираем из адреса, иначе параметр
-          // будет вечно перебивать выбор кнопкой при перезагрузке
-          localStorage.setItem('design-variant', v);
-          p.delete('v');
-          history.replaceState(null, '', location.pathname + (p.size ? '?' + p : '') + location.hash);
-        } else {
-          v = localStorage.getItem('design-variant');
-        }
-        if (v && v !== 'base') document.documentElement.dataset.variant = v;
-      })();
-    </script>
   </head>
   <body>
     <slot />
-    <div class="variant-bar" aria-label="Вариант дизайна">
-      <button data-v="base">База</button>
-      <button data-v="plates">Бенто</button>
-      <button data-v="serif">Lora</button>
-      <button data-v="mocha">Мокко</button>
-    </div>
-    <script>
-      // Переключатель вариаций — превью-инструмент, убрать после выбора
-      const bar = document.querySelector('.variant-bar');
-      const current = () => document.documentElement.dataset.variant ?? 'base';
-      function paint() {
-        bar?.querySelectorAll('button').forEach((b) => {
-          b.setAttribute('aria-pressed', String(b.dataset.v === current()));
-        });
-      }
-      bar?.addEventListener('click', (e) => {
-        const btn = (e.target as HTMLElement).closest('button');
-        if (!btn?.dataset.v) return;
-        const v = btn.dataset.v;
-        if (v === 'base') delete document.documentElement.dataset.variant;
-        else document.documentElement.dataset.variant = v;
-        localStorage.setItem('design-variant', v);
-        paint();
-      });
-      paint();
-    </script>
     <script>
       // Посимвольный ревил заголовков (реф: SplitText — символы
       // проявляются в случайном порядке, each 0.02s). Режем на спаны

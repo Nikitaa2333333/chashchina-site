@@ -1,30 +1,28 @@
 ---
-// Футер: тёмная полоса-примечание (реф: .drop-note) + служебная строка
+// Каркас футера: полоса-примечание + служебная строка.
+// Оформление снято вместе со старым дизайном.
 import { asset } from '../lib/asset';
 ---
 
 <footer class="footer">
-  <div class="footer__note theme-dark">
-    <div class="container footer__note-row">
+  <div class="footer__note">
+    <div class="container">
       <p>Имеются противопоказания. Необходима консультация специалиста.</p>
     </div>
   </div>
   <div class="container footer__row">
-    <p class="small">Оксана Чащина, {new Date().getFullYear()}</p>
-    <nav class="footer__links small">
+    <p>Оксана Чащина, {new Date().getFullYear()}</p>
+    <nav class="footer__links">
       <a href="https://t.me/krasotanasspaset">Telegram</a>
       <a href="https://vk.com/krasotanasspaset">ВКонтакте</a>
       <a href="https://dzen.ru/id/6237172c60d2e66b912c755f">Дзен</a>
     </nav>
-    <a class="small footer__policy" href={asset('policy')}>Политика обработки персональных данных</a>
+    <a href={asset('policy')}>Политика обработки персональных данных</a>
   </div>
 </footer>
 
 <style>
-  .footer__note {
-    padding-block: 22px;
-  }
-  .footer__note p { max-width: none; }
+  .footer__note { padding-block: 22px; }
   .footer__row {
     display: flex;
     flex-wrap: wrap;
@@ -37,7 +35,6 @@ import { asset } from '../lib/asset';
     display: flex;
     gap: 24px;
   }
-  .footer__policy { color: var(--c-green); }
   @media (max-width: 700px) {
     .footer__row { flex-direction: column; align-items: flex-start; }
   }

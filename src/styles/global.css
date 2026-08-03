@@ -1,101 +1,34 @@
 /* ============================================================
-   ТОКЕНЫ — весь «пульт управления» сайтом.
-   Референс: farmminerals.com/products/croptab (дизайн-система
-   designmd.me/s/farmminerals-q244t), адаптировано: у нас база —
-   белый и серый ближе к белому, зелёный — акцент, а не фон.
+   ЧИСТЫЙ ЛИСТ. Старый дизайн (оливково-розовая система по мотивам
+   farmminerals) снят целиком — остались только каркас, инварианты
+   и то, что нужно скриптам анимаций.
+
+   Что здесь есть:
+     1. Сброс и база
+     2. Пульт сетки и ритма — значения-заглушки, подобрать под макет
+     3. Инварианты набора (правила, которые не зависят от стиля)
+     4. Каркас .container / .section
+     5. Классы анимаций — их ждут скрипты в Layout.astro
+
+   Чего здесь нет и что заводить заново: палитра, шрифт, шкала
+   кеглей, мера строки, вид кнопок/линий/карточек.
    ============================================================ */
 
-:root {
-  /* ---------- Цвет ----------
-     Ощущение: воздух, природа, швейцарская сдержанность. */
-  --c-bg:          #ffffff;  /* база страницы — чистый белый */
-  --c-surface:     #f4f4f1;  /* серый ближе к белому: плашки, карточки, чередование секций */
-  --c-surface-2:   #eceded1a;/* едва заметный слой поверх тёмного (техничные оверлеи) */
-  --c-ink:         #111311;  /* основной текст — почти чёрный с каплей зелени */
-  --c-green:       #5c6b3c;  /* авокадовый — акцент: ссылки, маркеры, детали (реф: #636F3D) */
-  --c-green-deep:  #404f1d;  /* глубокий лесной — тёмные контрастные секции (реф: #404F1D) */
-  --c-green-pale:  #aab98f;  /* пастельный шалфей — декоративные детали на тёмном (реф: #A5B589) */
-  --c-line:        #dddddd;  /* линии и границы — только структурные (реф: #DDDDDD) */
-  --c-white:       #ffffff;  /* текст на тёмном — чистый белый, без приглушения */
-
-  /* ---------- Розовый — второй акцент, «внешняя» линия ----------
-     Принцип: зелёный = внутреннее/медицина (организм, причины,
-     превентивка, служебный UI), розовый = внешнее/эстетика (кожа,
-     процедуры, уход). Пудровый, пыльный, без сладости. */
-  --c-rose:         #c08379;  /* бирки, номера, детали в процедурных секциях */
-  --c-rose-pale:    #e9cfc8;  /* пастельная подложка при необходимости */
-  --c-rose-surface: #f7edea;  /* пудровая плашка процедурных секций */
-
-  /* ---------- Сетка и поля ----------
-     Контент прижат к краям: узкие поля, широкая рабочая зона.
-     Реф: контейнер 1388px, у нас потолок 1360 — на моём экране
-     (~1280 CSS-px) страница в любом случае идёт от края до края,
-     поле задаёт --gutter. */
-  --page-max:    1360px;                      /* крутить 1280–1440 */
-  --gutter:      clamp(14px, 1.8vw, 26px);    /* узкое поле, как у рефа (--padding-web ≈ 1.8vw) */
-
-  /* ---------- Вертикальный ритм ----------
-     Помним: дыра между секциями = низ верхней + верх нижней.
-     Нужен разрыв ~120px на десктопе — значит, половинки по 60. */
-  --section-gap:       clamp(48px, 7vw, 96px);   /* стандартная секция, сверху и снизу */
-  --section-gap-tight: clamp(28px, 4vw, 56px);   /* поджатые блоки внутри темы */
-  --block-gap:         clamp(20px, 3vw, 40px);   /* заголовок секции → её контент */
-
-  /* ---------- Мера строки (в ch, ставится на сам текстовый элемент) ---------- */
-  --measure-text:    72ch;  /* наборный абзац: 68–78 знаков */
-  --measure-lead:    60ch;  /* лид: 56–64 */
-  --measure-head:    26ch;  /* крупный h2 секции */
-  --measure-head-lg: 18ch;  /* h1 / display */
-  --measure-prose:   70ch;  /* статейный поток */
-
-  /* ---------- Типографика ----------
-     Onest — гротеск с кириллицей, близкий к Helvetica.
-     Заголовки тонкие (300/350), реф использует Aeonik 400/500.
-     Капс запрещён по всему сайту. */
-  --font-sans: 'Onest Variable', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-  --fs-display: clamp(60px, 10vw, 128px);   /* h1 первого экрана: крупнее рефа (86px),
-                                               но не во всю строку подзаголовка */
-  --fs-h1:      clamp(36px, 4.8vw, 61px);   /* заголовки страниц (реф: 61.4px) */
-  --fs-h2:      clamp(28px, 3.2vw, 40px);   /* заголовки секций (реф: 38px) */
-  --fs-h3:      clamp(20px, 2vw, 24px);     /* подзаголовки (реф: 23.4px) */
-  --fs-body:    clamp(16px, 1.35vw, 17.5px);/* набор (реф: 17.28px) */
-  --fs-small:   14px;                        /* технические подписи, метки (реф: 13.8px) */
-  --fs-label:   12px;                        /* микролейблы у фото и таблиц (реф: 9.7–12px) */
-
-  --lh-tight: 1.02;  /* display-заголовки (реф: 82/86) */
-  --lh-head:  1.12;  /* h2–h3 */
-  --lh-body:  1.5;   /* набор */
-
-  /* ---------- Движение ----------
-     Реф: сдержанно, hover через opacity, переходы ~0.2s ease. */
-  --ease-out:  cubic-bezier(.22, .61, .36, 1);
-  --t-hover:   0.2s ease;
-  --t-reveal:  0.9s var(--ease-out);
-}
-
-/* ============================================================
-   БАЗА
-   ============================================================ */
+/* ---------- 1. Сброс и база ---------- */
 
 *,
 *::before,
 *::after { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  font-family: var(--font-sans);
-  font-size: var(--fs-body);
-  font-weight: 400;
-  line-height: var(--lh-body);
-  color: var(--c-ink);
-  background: var(--c-bg);
+  /* Временный системный стек — свой шрифт подключить в Layout.astro
+     и прописать здесь. Onest снят вместе со старым дизайном. */
+  font-family: system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
 
 img, video {
@@ -104,35 +37,33 @@ img, video {
   display: block;
 }
 
-/* Никаких скруглений по умолчанию — прямые углы по всему сайту */
-button, input, textarea, select {
-  border-radius: 0;
-  font-family: inherit;
-}
+button, input, textarea, select { font-family: inherit; }
 
 a {
   color: inherit;
   text-decoration: none;
-  transition: opacity var(--t-hover);
-}
-a:hover { opacity: .7; }
-
-::selection {
-  background: var(--c-green-pale);
-  color: var(--c-ink);
 }
 
-/* Фирменный маркер — единственный способ выделить фразу */
-mark {
-  background: var(--c-green-pale);
-  color: inherit;
-  padding: 0 .18em;
-  border-radius: 0;
+h1, h2, h3, h4 { margin: 0; }
+p { margin: 0; }
+p + p { margin-top: 1em; }
+
+/* ---------- 2. Пульт сетки и ритма ----------
+   Механизм остаётся прежним: расстояния живут здесь, а не в
+   компонентах. Значения — заглушки, крутить под новый макет.
+   Помним: дыра между секциями = низ верхней + верх нижней. */
+
+:root {
+  --page-max:    1200px;                     /* ширина контента */
+  --gutter:      clamp(16px, 3vw, 32px);     /* поле от края экрана */
+  --section-gap: clamp(48px, 7vw, 96px);     /* отступ секции сверху и снизу */
+  --block-gap:   clamp(20px, 3vw, 40px);     /* заголовок секции → её контент */
 }
 
-/* ---------- Предохранители ---------- */
+/* ---------- 3. Инварианты набора ----------
+   Не зависят от стиля — держим при любом дизайне. */
 
-/* Жирность и курсив внутри наборного текста — запрещены */
+/* Жирность и курсив внутри наборного текста запрещены */
 p b, p strong, p em, p i,
 li > b, li > strong, li > em, li > i,
 dd b, dd strong, td b, td strong {
@@ -141,12 +72,12 @@ dd b, dd strong, td b, td strong {
   font-style: normal;
 }
 
-/* Капс запрещён — предохранитель от каса в любом виде */
+/* Капс запрещён */
 h1, h2, h3, h4, h5, h6, p, a, li, button, span, label, figcaption {
   text-transform: none;
 }
 
-/* Перечисления без буллитов и линий — держит вертикальный ритм */
+/* Перечисления без буллитов и разделительных линий */
 ul, ol {
   list-style: none;
   margin: 0;
@@ -154,60 +85,7 @@ ul, ol {
 }
 li + li { margin-top: 13px; }
 
-/* ============================================================
-   ТИПОГРАФИКА
-   ============================================================ */
-
-h1, h2, h3, h4 {
-  margin: 0;
-  font-weight: 330;           /* тонкие заголовки — характер сайта */
-  line-height: var(--lh-head);
-  letter-spacing: -0.01em;
-}
-
-h1 { font-size: var(--fs-h1); line-height: var(--lh-tight); }
-h2 { font-size: var(--fs-h2); max-width: var(--measure-head); }
-h3 { font-size: var(--fs-h3); font-weight: 420; }
-
-p { margin: 0; }
-p + p { margin-top: 1em; }
-
-/* Ритм шапки секции: бирка → заголовок → лид.
-   Без этого лид прилипает к заголовку (у всех margin: 0). */
-.tag + h1, .tag + h2 { margin-top: 12px; }
-h1 + p, h2 + p { margin-top: clamp(16px, 2vw, 26px); }
-
-.display {
-  font-size: var(--fs-display);
-  font-weight: 300;
-  line-height: 0.9; /* плотнее обычного tight: реф держит 90–93% */
-  letter-spacing: -0.015em;
-  max-width: var(--measure-head-lg);
-}
-
-.lead {
-  font-size: var(--fs-h3);
-  font-weight: 380;
-  line-height: 1.4;
-  max-width: var(--measure-lead);
-}
-
-p, .text { max-width: var(--measure-text); }
-
-/* Техническая подпись — мелкий сопроводительный текст у фото,
-   таблиц, карточек. На светлом — зелёный, на тёмном — pale. */
-.tag {
-  font-size: var(--fs-label);
-  letter-spacing: .04em;
-  color: var(--c-green);
-}
-.theme-dark .tag { color: var(--c-green-pale); }
-
-.small { font-size: var(--fs-small); }
-
-/* ============================================================
-   СЕТКА
-   ============================================================ */
+/* ---------- 4. Каркас ---------- */
 
 .container {
   max-width: var(--page-max);
@@ -215,87 +93,26 @@ p, .text { max-width: var(--measure-text); }
   padding-inline: var(--gutter);
 }
 
-.section {
-  padding-block: var(--section-gap);
-}
-.section--tight  { padding-block: var(--section-gap-tight); }
+.section { padding-block: var(--section-gap); }
+.section--tight        { padding-block: calc(var(--section-gap) / 2); }
 .section--flush-top    { padding-top: 0; }
 .section--flush-bottom { padding-bottom: 0; }
 
-/* Секция на сером — чередование ритма страницы */
-.section--surface { background: var(--c-surface); }
-
-/* Розовая плашка процедурной («внешней») секции */
-.section--rose { background: var(--c-rose-surface); }
-
-/* Розовые бирки/номера процедурной секции — вешается на секцию */
-.accent-rose .tag { color: var(--c-rose); }
-
-/* Тёмная контрастная секция (реф: hero croptab на глубоком олива) */
-.theme-dark {
-  background: var(--c-green-deep);
-  color: var(--c-white);
-}
-
-/* Полноширинное фото — от края до края экрана */
+/* Полноширинный блок — от края до края экрана */
 .bleed {
   width: 100%;
   margin-inline: 0;
 }
 
-/* Структурная линия (только там, где линия — часть структуры) */
-.rule {
-  border: 0;
-  border-top: 1px solid var(--c-line);
-  margin: 0;
-}
-.theme-dark .rule { border-color: rgba(255, 255, 255, .25); }
-
-
-/* ============================================================
-   ЭЛЕМЕНТЫ
-   ============================================================ */
-
-/* Кнопка: прямые углы, реф — светлая плашка + зелёный текст */
-.btn {
-  display: inline-block;
-  padding: 14px 26px;
-  border: 1px solid var(--c-ink);
-  background: var(--c-ink);
-  color: var(--c-white);
-  font-size: var(--fs-small);
-  font-weight: 450;
-  cursor: pointer;
-  transition: opacity var(--t-hover);
-}
-.btn:hover { opacity: .82; }
-
-.btn--ghost {
-  background: transparent;
-  color: var(--c-ink);
-}
-.theme-dark .btn {
-  background: var(--c-white);
-  border-color: var(--c-white);
-  color: var(--c-green-deep);
-}
-
-/* Текстовая ссылка-стрелка */
-.link-arrow {
-  color: var(--c-green);
-  font-size: var(--fs-body);
-}
-
-/* ============================================================
-   АНИМАЦИЯ ПОЯВЛЕНИЯ (reveal on scroll)
-   Реф: мягкие fade/rise при входе в вьюпорт, строки заголовков
-   проявляются каскадом. JS вешает .is-in через IntersectionObserver.
-   ============================================================ */
+/* ---------- 5. Анимации ----------
+   Классы ждут скрипты в Layout.astro: IntersectionObserver вешает
+   .is-in, посимвольный ревил режет [data-split] на .char.
+   Логику не трогаем — переписываем только оформление. */
 
 .reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity var(--t-reveal), transform var(--t-reveal);
+  transition: opacity .9s ease, transform .9s ease;
   transition-delay: var(--reveal-delay, 0s);
 }
 .reveal.is-in {
@@ -307,7 +124,7 @@ p, .text { max-width: var(--measure-text); }
 .reveal-group > * {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity var(--t-reveal), transform var(--t-reveal);
+  transition: opacity .9s ease, transform .9s ease;
 }
 .reveal-group.is-in > * {
   opacity: 1;
@@ -320,12 +137,10 @@ p, .text { max-width: var(--measure-text); }
 .reveal-group.is-in > :nth-child(5) { transition-delay: .32s; }
 .reveal-group.is-in > :nth-child(6) { transition-delay: .4s; }
 
-/* Посимвольное появление заголовков (реф: GSAP SplitText —
-   chars проявляются за 0.4s со stagger 0.02 в случайном порядке).
-   JS режет [data-split] на спаны .char и раздаёт случайные задержки. */
+/* Посимвольное появление заголовков */
 [data-split] .char {
   opacity: 0;
-  transition: opacity .4s var(--ease-out);
+  transition: opacity .4s ease;
   transition-delay: var(--char-delay, 0s);
 }
 [data-split].is-in .char { opacity: 1; }
