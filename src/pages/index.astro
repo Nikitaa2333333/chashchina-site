@@ -531,20 +531,15 @@ const path = [
         <mark>Ради него всё и делается.</mark>
       </p>
       <div class="path reveal">
-        <div class="path__head">
-          <h3>Мой путь</h3>
-          <span class="tag" aria-hidden="true">листайте вбок →</span>
-        </div>
-        <div class="path__scroller">
-          <ol class="path__track" tabindex="0" aria-label="Мой путь — ключевые этапы по годам">
-            {path.map((p) => (
-              <li class="path__item">
-                <span class="path__year">{p.y}</span>
-                <p class="path__text">{p.t}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
+        <h3 class="path__head">Мой путь</h3>
+        <ol class="path__list" aria-label="Мой путь — ключевые этапы по годам">
+          {path.map((p) => (
+            <li class="path__item">
+              <span class="path__year">{p.y}</span>
+              <p class="path__text">{p.t}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </div>
   </section>
@@ -628,29 +623,40 @@ const path = [
   <Footer />
 </Layout>
 
+<style>
+  /* «Мой путь» — единственный блок со своим оформлением: без него год
+     и строка сливаются в сплошной текст. Числа берём из токенов
+     global.css, свои добавляем только там, где токена нет. */
 
-<script>
-  // «Мой путь»: перетаскивание ленты мышью (тачпад и тач скроллят нативно)
-  const track = document.querySelector<HTMLElement>('.path__track');
-  if (track) {
-    let startX = 0;
-    let startLeft = 0;
-    let dragging = false;
-    track.addEventListener('pointerdown', (e) => {
-      dragging = true;
-      startX = e.clientX;
-      startLeft = track.scrollLeft;
-      track.classList.add('is-drag');
-      track.setPointerCapture(e.pointerId);
-    });
-    track.addEventListener('pointermove', (e) => {
-      if (dragging) track.scrollLeft = startLeft - (e.clientX - startX);
-    });
-    const stopDrag = () => {
-      dragging = false;
-      track.classList.remove('is-drag');
-    };
-    track.addEventListener('pointerup', stopDrag);
-    track.addEventListener('pointercancel', stopDrag);
+  .path { margin-top: var(--section-gap); }
+
+  .path__head { margin-bottom: var(--block-gap); }
+
+  .path__list {
+    display: grid;
+    gap: clamp(18px, 2.4vw, 30px);
   }
-</script>
+
+  /* Год и строка — две колонки, чтобы читалось как «когда → что».
+     Колонка года считается по самому длинному значению («Сегодня»). */
+  .path__item {
+    display: grid;
+    grid-template-columns: minmax(5.5em, max-content) minmax(0, 1fr);
+    column-gap: clamp(16px, 3vw, 40px);
+    align-items: baseline;
+  }
+
+  /* Глобальное правило li + li здесь не нужно — расстояние даёт gap */
+  .path__item + .path__item { margin-top: 0; }
+
+  .path__year { font-variant-numeric: tabular-nums; }
+
+  .path__text { max-width: 58ch; }
+
+  /* На узком экране год встаёт над строкой — тогда ему нужен
+     собственный отступ, иначе строки снова слипаются. */
+  @media (max-width: 560px) {
+    .path__item { grid-template-columns: 1fr; }
+    .path__year { margin-bottom: 6px; }
+  }
+</style>
